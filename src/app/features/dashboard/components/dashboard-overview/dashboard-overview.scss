@@ -71,6 +71,17 @@
   margin-top: 10px;
 }
 
+/* responsive breakpoint */
+@media (max-width: 1024px) {
+  .stats-and-chart {
+    grid-template-columns: 1fr; /* stack everything */
+  }
+
+  .stat-row {
+    flex-direction: column; /* stack Pending / In Progress / Completed */
+  }
+}
+
 .stat-label {
   font-size: 16px;
   color: rgba(0,0,0,0.6);
