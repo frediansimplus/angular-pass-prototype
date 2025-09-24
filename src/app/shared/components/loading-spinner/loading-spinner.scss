@@ -1,0 +1,19 @@
+.spinner-container {
+  @apply fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-50;
+
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.spinner {
+  @apply w-16 h-16 border-4 border-t-4 border-blue-500 border-t-transparent rounded-full animate-spin;
+}
+
+.spinner-message {
+  @apply text-white text-lg mt-4;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

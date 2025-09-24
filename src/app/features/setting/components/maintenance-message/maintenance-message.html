@@ -1,0 +1,34 @@
+<app-side-nav>
+    <main class="page-container">
+        <header class="page-header">
+            <button mat-icon-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            </button>
+            <h2 class="title">Maintenance Message</h2>
+        </header>
+
+        <section class="page-content">
+            <mat-card class="form-card">
+                <p>Maintenance notice message:</p>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Message</mat-label>
+                    <textarea
+                    matInput
+                    placeholder="Message"
+                    [(ngModel)]="message"
+                    rows="4">
+                    </textarea>
+                </mat-form-field>
+
+                <div class="actions">
+                    <button mat-stroked-button color="warn" (click)="clearMessage()">
+                    Clear ✕
+                    </button>
+                    <button mat-flat-button color="primary" (click)="saveMessage()">
+                    <mat-icon>save</mat-icon> Save
+                    </button>
+                </div>
+            </mat-card>
+        </section>
+    </main>
+</app-side-nav>

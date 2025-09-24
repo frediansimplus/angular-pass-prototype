@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "date": "2025-09-08T09:00:00",
+    "type": "Slips, Trips, and Falls",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  },
+  {
+    "id": "2",
+    "date": "2025-09-08T09:00:00",
+    "type": "Struck By or Against",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  },
+  {
+    "id": "3",
+    "date": "2025-09-08T09:00:00",
+    "type": "Equipment Malfunction",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  },
+  {
+    "id": "4",
+    "date": "2025-09-08T09:00:00",
+    "type": "Unsafe Condition",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  },
+  {
+    "id": "5",
+    "date": "2025-09-08T09:00:00",
+    "type": "Critical Non-Compliance",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  },
+  {
+    "id": "6",
+    "date": "2025-09-08T09:00:00",
+    "type": "Regulatory Non-Compliance",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  },
+  {
+    "id": "7",
+    "date": "2025-09-08T09:00:00",
+    "type": "Unintentional Non-Compliance",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  },
+  {
+    "id": "8",
+    "date": "2025-09-08T09:00:00",
+    "type": "Ethical Non-Compliance",
+    "message": "Dear user, you are assigned to report. please acknowledge it"
+  }
+]

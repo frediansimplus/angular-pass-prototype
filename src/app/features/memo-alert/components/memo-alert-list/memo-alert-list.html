@@ -1,0 +1,96 @@
+<app-side-nav>
+  <main class="page-container">
+    <header class="page-header">
+      <h2 class="title">Memo Alerts</h2>
+      <div class="actions">
+        <button mat-flat-button (click)="openOverlay()">
+          <mat-icon>add</mat-icon>
+          Add New Memo
+        </button>
+      </div>
+    </header>
+
+    <section class="page-content">
+      <div class="memo-alerts-toolbar">
+        <!-- Search -->
+        <mat-form-field appearance="outline" class="search-form-field search-field">
+          <mat-label>Search by title, or date</mat-label>
+          <input matInput placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilter()">
+          <button mat-icon-button *ngIf="searchQuery" matSuffix (click)="onClearSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!-- Filters -->
+        <button mat-stroked-button [matMenuTriggerFor]="filtersMenu">
+          Sort <mat-icon>filter_list</mat-icon>
+        </button>
+        <mat-menu #filtersMenu="matMenu">
+          <button mat-menu-item (click)="sortByDate()">By Date</button>
+          <button mat-menu-item (click)="sortByType()">By Type</button>
+        </mat-menu>
+
+        <!-- Memo Alert Type -->
+        <button mat-stroked-button [matMenuTriggerFor]="typeMenu">
+          Memo Type <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #typeMenu="matMenu">
+          <button mat-menu-item (click)="filterByType(type)" *ngFor="let type of memoAlertTypes">{{ type }}</button>
+        </mat-menu>
+
+        <!-- Reset -->
+        <button mat-icon-button (click)="resetFilters()">
+          <mat-icon>restore</mat-icon>
+        </button>
+      </div>
+
+      <!-- Header -->
+      <mat-card class="memo-alert-card header-card">
+        <div class="header-row">
+          <div class="col">Date</div>
+          <div class="col">Type</div>
+          <div class="col">Title</div>
+          <div class="col">Actions</div>
+        </div>
+      </mat-card>
+
+      <!-- Data Cards -->
+      <div class="card-grid">
+        <mat-card class="memo-alert-card" *ngFor="let memoAlert of displayedMemoAlerts">
+          <div class="row">
+            <div class="col">{{ memoAlert.date | date:'mediumDate' }}</div>
+            <div class="col">{{ memoAlert.type }}</div>
+            <div class="col">{{ memoAlert.title }}</div>
+            <div class="col actions">
+              <button mat-icon-button>
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>Edit</button>
+                <button mat-menu-item color="warn">Delete</button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <!-- Paginator -->
+      <mat-paginator [length]="total" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="onPageChange($event)" aria-label="Select page">
+      </mat-paginator>
+
+      <mat-menu #rowMenu="matMenu">
+        <button mat-menu-item>Edit</button>
+        <button mat-menu-item>Delete</button>
+      </mat-menu>
+    </section>
+  </main>
+</app-side-nav>
+
+
+<ng-template #editTemplate>
+  <app-memo-alert-create (closeEvent)="closeOverlay()"></app-memo-alert-create>
+</ng-template>

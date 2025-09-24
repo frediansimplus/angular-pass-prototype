@@ -1,0 +1,14 @@
+.overlay-panel {
+  // Reset previous positioning
+  position: relative; // Let the CDK's position strategy handle the global placement
+
+  // Set the specific dimensions
+  width: 600px;
+  height: 100%; // Fill the height of the parent overlay panel
+
+  // Basic styling for the content box
+  background-color: #fff;
+  // padding: 24px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; // Allow scrolling for long content
+}

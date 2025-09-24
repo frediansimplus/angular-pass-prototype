@@ -1,0 +1,135 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((color: (primary: mat.$rose-palette,
+        tertiary: mat.$red-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+
+  @include mat.sidenav-overrides((
+    content-background-color: var(--container-bg-color)
+  ));
+
+  .search-form-field {
+    @include mat.form-field-density(-3);
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
+  .critical-button {
+    @include mat.icon-button-overrides((
+      icon-color: var(--critical-color)
+      ));
+
+  }
+
+  .compact-form {
+    @include mat.form-field-density(-1);
+    @include mat.icon-button-density(5);
+    @include mat.card-overrides((elevated-container-shape: 4px,
+        outlined-container-shape: 4px,
+      ));
+  }
+}
+
+:root {
+  --container-bg-color: #F0F0F0;
+  --content-bg-color: #FFFAFA;
+  --border-color: #0000000F;
+
+  --icon-color: #BDBDBD;
+
+  --primary-color: var(--mat-sys-primary);
+  --primary-bg-color: var(--mat-sys-primary-container);
+
+  --warning-color: #E8B931;
+  --warning-bg-color: #F9EDC9;
+
+  --critical-color: #EC221F;
+  --critical-bg-color: #FAC6C5;
+
+  --neutral-color: #BDBDBD;
+  --neutral-bg-color: #E0E0E0;
+
+  --success-color: #009951;
+  --success-bg-color: #BDE4D2;
+
+  --pending-bg-color: #eee;
+  --pending-color: #555;
+
+  --inprogress-bg-color: #cce5ff;
+  --inprogress-color: #004085;
+  
+  --complete-bg-color: #d4edda;
+  --complete-color: #155724;
+
+
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.page-container {
+  padding: 8px 16px 16px;
+  background-color: var(--container-bg-color);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 16px;
+
+  .title {
+    flex-grow: 1;
+  }
+}
+
+.page-content {
+  background-color: var(--content-bg-color);
+  padding: 16px;
+  border-radius: 8px;
+}

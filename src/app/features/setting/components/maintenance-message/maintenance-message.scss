@@ -1,0 +1,25 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  .title {
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+.form-card {
+  padding: 16px;
+  border: 0;
+  box-shadow: none;
+  background: #FFFAFA;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}

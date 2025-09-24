@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "date": "2025-09-08T00:00:00.000Z",
+    "type": "NAVAREA Warnings",
+    "title": "DANGER TO NAVIGATION"
+  },
+  {
+    "id": "2",
+    "date": "2025-09-08T00:00:00.000Z",
+    "type": "Maritime Alerts",
+    "title": "SUSPICIOUS APPROACH IN AREA"
+  },
+  {
+    "id": "3",
+    "date": "2025-09-08T00:00:00.000Z",
+    "type": "Notices to Mariners",
+    "title": "Chart 1234 - River - New Buoy"
+  },
+  {
+    "id": "4",
+    "date": "2025-09-08T00:00:00.000Z",
+    "type": "Safety Alerts",
+    "title": "RISK OF ENGINE ROOM FIRES DUE TO FUEL LINE VIBRATION"
+  },
+  {
+    "id": "5",
+    "date": "2025-09-08T00:00:00.000Z",
+    "type": "Harbour Master's Instructions",
+    "title": "Temporary Closure of West Channel"
+  },
+  {
+    "id": "6",
+    "date": "2025-09-08T00:00:00.000Z",
+    "type": "Maritime Advisories",
+    "title": "HIGH RISK AREA RE-EVALUATION"
+  },
+  {
+    "id": "7",
+    "date": "2025-09-08T00:00:00.000Z",
+    "type": "Safety Bulletins",
+    "title": "DANGEROUS GOODS - IMPROPER PACKAGING"
+  }
+]

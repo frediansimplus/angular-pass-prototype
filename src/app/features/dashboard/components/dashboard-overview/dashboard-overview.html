@@ -1,0 +1,210 @@
+<app-side-nav>
+  <main class="page-container">
+    <header class="page-header">
+      <h2 class="title">Dashboard</h2>
+      <div class="actions">
+        <button mat-flat-button color="primary">
+          <mat-icon>cloud_upload</mat-icon>
+          Export
+        </button>
+      </div>
+    </header>
+
+    <section class="page-content">
+      <app-loading-spinner
+        [show]="isLoading"
+        message="Preparing dashboard data..."
+      ></app-loading-spinner>
+      <!-- Report Stats Header -->
+      <div class="report-stats-header">
+        <h2>Report Stats</h2>
+
+        <button mat-stroked-button [matMenuTriggerFor]="timeMenu">
+          {{ selectedRange }}
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #timeMenu="matMenu">
+          <button mat-menu-item (click)="setRange('This Day')">This Day</button>
+          <button mat-menu-item (click)="setRange('This Week')">This Week</button>
+          <button mat-menu-item (click)="setRange('This Month')">This Month</button>
+          <button mat-menu-item (click)="setRange('This Year')">This Year</button>
+        </mat-menu>
+      </div>
+
+      <div *ngIf="!isLoading; else loadingOrError" class="stats-and-chart">
+        <!-- Left: Report Stats (two stacked cards) -->
+        <div class="stats-col">
+          <!-- Near-Miss Report -->
+          <mat-card class="stats-card">
+            <mat-card-header>
+              <mat-card-title class="header-card">Near-Miss Report</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content class="stat-row">
+              <mat-card class="stat-box pending">
+                <mat-card-content>
+                  <div class="stat-label">Pending</div>
+                  <div class="stat-value">{{ nearMiss.pending }}</div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card class="stat-box in-progress">
+                <mat-card-content>
+                  <div class="stat-label">In Progress</div>
+                  <div class="stat-value">{{ nearMiss.inProgress }}</div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card class="stat-box completed">
+                <mat-card-content>
+                  <div class="stat-label">Completed</div>
+                  <div class="stat-value">{{ nearMiss.completed }}</div>
+                </mat-card-content>
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Non-Compliance Report -->
+          <mat-card class="stats-card">
+            <mat-card-header>
+              <mat-card-title class="header-card">Non-Compliance Report</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content class="stat-row">
+              <mat-card class="stat-box pending">
+                <mat-card-content>
+                  <div class="stat-label">Pending</div>
+                  <div class="stat-value">{{ nonCompliance.pending }}</div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card class="stat-box in-progress">
+                <mat-card-content>
+                  <div class="stat-label">In Progress</div>
+                  <div class="stat-value">{{ nonCompliance.inProgress }}</div>
+                </mat-card-content>
+              </mat-card>
+
+              <mat-card class="stat-box completed">
+                <mat-card-content>
+                  <div class="stat-label">Completed</div>
+                  <div class="stat-value">{{ nonCompliance.completed }}</div>
+                </mat-card-content>
+              </mat-card>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <!-- Right: Chart -->
+        <mat-card class="chart-card">
+          <mat-card-content>
+            <!-- ngx-echarts directive -->
+            <div echarts [options]="chartOptions"  [theme]="theme" class="echart"></div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Report Stats Header -->
+      <div class="report-stats-header">
+        <h2>Report Stats</h2>
+      </div>
+
+      <div class="reports-toolbar">
+        <!-- Search -->
+        <mat-form-field appearance="outline" class="search-form-field search-field">
+          <mat-label>Search by vessel, title, location, or date</mat-label>
+          <input matInput placeholder="Search..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilter()">
+          @if (searchQuery) {
+            <button mat-icon-button matSuffix (click)="onClearSearch()">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </mat-form-field>
+
+        <!-- Filters -->
+        <button mat-stroked-button [matMenuTriggerFor]="filtersMenu">
+          Sort <mat-icon>filter_list</mat-icon>
+        </button>
+        <mat-menu #filtersMenu="matMenu">
+          <button mat-menu-item (click)="sortByDate()">By Date</button>
+          <button mat-menu-item (click)="sortByVessel()">By Vessel</button>
+          <button mat-menu-item (click)="sortByLocation()">By Location</button>
+        </mat-menu>
+
+        <!-- Report Type -->
+        <button mat-stroked-button [matMenuTriggerFor]="typeMenu">
+          Report Type <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #typeMenu="matMenu">
+          <button mat-menu-item (click)="filterByType(type)" *ngFor="let type of reportTypes">{{ type }}</button>
+        </mat-menu>
+
+        <!-- Report Status -->
+        <button mat-stroked-button [matMenuTriggerFor]="statusMenu">
+          Report Status <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #statusMenu="matMenu">
+          <button mat-menu-item (click)="filterByStatus(s)" *ngFor="let s of reportStatuses">{{ s }}</button>
+        </mat-menu>
+
+        <!-- Reset -->
+        <button mat-icon-button (click)="resetFilters()">
+          <mat-icon>restore</mat-icon>
+        </button>
+      </div>
+
+      <!-- Header -->
+      <mat-card class="report-card table-header-card">
+        <div class="table-header-row">
+          <div class="col">Date</div>
+          <div class="col">Category</div>
+          <div class="col">Vessel</div>
+          <div class="col">Title</div>
+          <div class="col">Location</div>
+          <div class="col">Status</div>
+          <div class="col col-action">Actions</div>
+        </div>
+      </mat-card>
+
+      <!-- Data Cards -->
+      <div class="card-grid">
+        <mat-card class="report-card" *ngFor="let report of displayedReports">
+          <div class="row">
+            <div class="col">{{ report.date | date:'mediumDate' }}</div>
+            <div class="col">{{ report.category }}</div>
+            <div class="col">{{ report.vessel_name }}</div>
+            <div class="col">{{ report.title }}</div>
+            <div class="col">{{ report.location }}</div>
+            <div class="col" [ngClass]="report.status">
+              <span class="status-badge" [ngClass]="report.status">
+                {{ report.status | titlecase }}
+              </span>
+            </div>
+            <div class="col col-action">
+              <button mat-icon-button>
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>Edit</button>
+                <button mat-menu-item color="warn">Delete</button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+      <mat-menu #rowMenu="matMenu">
+        <button mat-menu-item>Edit</button>
+        <button mat-menu-item>Delete</button>
+      </mat-menu>
+      <ng-template #loadingOrError>
+        <p class="mat-body-2 error-message">
+          Failed to load dashboard data. Please try again later.
+        </p>
+      </ng-template>
+    </section>
+  </main>
+</app-side-nav>

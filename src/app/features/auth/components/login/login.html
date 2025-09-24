@@ -1,0 +1,55 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <!-- Alert at top -->
+    <div class="alert-box">
+      Upcoming maintenance schedule at 12 Sep 2025 11:30
+    </div>
+
+    <!-- Middle content -->
+    <div class="login-card">
+      <img src="assets/logos/app-icon.png" alt="Logo" class="logo" />
+
+      <h2 *ngIf="!showForm">Welcome Back</h2>
+
+      <!-- Step 1: Show "Sign In" button -->
+      <button *ngIf="!showForm" class="btn-signin" (click)="toggleForm()">
+        Sign In
+      </button>
+
+      <!-- Step 2: Show login form -->
+      <form *ngIf="showForm" (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            required
+            [(ngModel)]="credentials.email"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            required
+            [(ngModel)]="credentials.password"
+          />
+        </mat-form-field>
+
+        <button type="submit" class="btn-signin">
+          Login
+        </button>
+      </form>
+    </div>
+
+    <!-- Terms at bottom -->
+    <p class="terms">
+      Clicking "Sign In" means that you understand and agree to
+      <a href="#">Terms &amp; Conditions</a>
+    </p>
+  </div>
+</div>

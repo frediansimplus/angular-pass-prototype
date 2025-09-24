@@ -1,0 +1,114 @@
+<section class="container">
+  <header class="header sticky">
+    <button mat-icon-button (click)="onCloseDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <h3>Create New Memo</h3>
+  </header>
+
+  <section class="content">
+    <mat-stepper linear #stepper [disableRipple]="true">
+      <mat-step #stepDetail [stepControl]="detailFormGroup">
+        <ng-template matStepLabel>Information</ng-template>
+        <ng-template matStepContent>
+          <ng-container [ngTemplateOutlet]="informationTemplate"></ng-container>
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Confirmation</ng-template>
+        <ng-template matStepContent>
+          <ng-container [ngTemplateOutlet]="confirmationTemplate"></ng-container>
+        </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </section>
+</section>
+
+
+<ng-template #informationTemplate>
+  <p class="group-header">Information</p>
+  <form [formGroup]="detailFormGroup" class="compact-form">
+    <div class="form-content">
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="datepicker" placeholder="DD MMM YYYY" [formControl]="dateCtrl" readonly>
+        <!-- <mat-hint>DD MMM YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #datepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="titleCtrl" placeholder="Title">
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Category</mat-label>
+        <input matInput formControlName="categoryCtrl" placeholder="Select Category">
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="descriptionCtrl" rows="5" aria-label="Description" [autofocus]="true"
+          cdkFocusInitial></textarea>
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Effective Date</mat-label>
+        <input matInput [matDatepicker]="effectiveDatepicker" placeholder="DD MMM YYYY" [formControl]="effectiveDateCtrl"
+          readonly>
+        <!-- <mat-hint>DD MMM YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="effectiveDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #effectiveDatepicker></mat-datepicker>
+      </mat-form-field>
+      
+      <p class="group-header">Acknowledgement</p>
+      <mat-checkbox>User Acknowledgement Required</mat-checkbox>
+
+      <p class="group-header">Alert Reminder Interval</p>
+      <mat-radio-group aria-label="Select an option" class="radio-group">
+        <mat-radio-button value="1">Once</mat-radio-button>
+        <mat-radio-button value="2">Repeat</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="form-action">
+      <button mat-flat-button [disabled]="detailFormGroup.invalid" (click)="onGoNext()">Next</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #confirmationTemplate>
+  <p class="group-header">Confirm new memo details:</p>
+  <div class="form-content view">
+    <div class="field-row">
+      <span class="label">Date</span>
+      <span class="value">{{memoAlertCreateData.dateStr}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Title</span>
+      <span class="value">{{memoAlertCreateData.title | stringNormalize}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Category</span>
+      <span class="value">{{memoAlertCreateData.category}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Description</span>
+      <span class="value">{{memoAlertCreateData.description | stringNormalize}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Effective Date</span>
+      <span class="value">{{memoAlertCreateData.effectiveDateStr}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Acknowledgement</span>
+      <span class="value">{{memoAlertCreateData.isRequiredAck}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Alert Reminder Interval</span>
+      <span class="value">{{memoAlertCreateData.reminderConfig.label}}</span>
+    </div>
+  </div>
+  <div class="form-action">
+    <button mat-stroked-button (click)="onGoBack()">Back</button>
+    <button mat-flat-button (click)="onConfirmation()">Submit</button>
+  </div>
+</ng-template>

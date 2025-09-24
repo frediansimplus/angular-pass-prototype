@@ -1,0 +1,42 @@
+<app-side-nav>
+    <main class="page-container">
+        <header class="page-header">
+            <button mat-icon-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+            </button>
+            <h2 class="title">Auto Approval</h2>
+        </header>
+
+        <section class="page-content">
+            <mat-card class="form-card">
+                <p>Allowed category for auto approval:</p>
+
+                <!-- Select + Add Button -->
+                <div class="category-row">
+                    <mat-form-field appearance="outline" class="flex-grow search-form-field search-field">
+                    <mat-label>Category</mat-label>
+                    <mat-select [(value)]="selectedCategory">
+                        <mat-option *ngFor="let c of categories" [value]="c">
+                        {{ c }}
+                        </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+
+                    <button mat-flat-button color="primary" (click)="addCategory()">
+                    Add Item +
+                    </button>
+                </div>
+
+                <!-- Added Categories -->
+                <mat-card class="category-item" *ngFor="let c of addedCategories; let i = index">
+                    <div class="item-row">
+                    <span>{{ c }}</span>
+                    <button mat-icon-button color="warn" (click)="removeCategory(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    </div>
+                </mat-card>
+            </mat-card>
+        </section>
+    </main>
+</app-side-nav>

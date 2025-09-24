@@ -1,0 +1,57 @@
+<app-side-nav>
+  <main class="page-container">
+    <header class="page-header">
+      <h2 class="title">Settings</h2>
+      <div class="actions">
+        
+      </div>
+    </header>
+    <section class="page-content">
+      <!-- Push Notification -->
+      <mat-card class="settings-card">
+        <div class="settings-header">Push Notification</div>
+
+        <div class="settings-row with-border">
+          <span class="description">
+            Enable/disable push notification for updates on the report, feedback and memo submissions.
+          </span>
+          <mat-slide-toggle [(ngModel)]="pushEnabled" color="primary"></mat-slide-toggle>
+        </div>
+
+        <div class="settings-row clickable" [matMenuTriggerFor]="intervalMenu">
+          <span class="label">Notification triggering interval</span>
+          <div class="row-action">
+            <span class="value">{{ selectedInterval }}</span>
+            <mat-icon>chevron_right</mat-icon>
+          </div>
+        </div>
+      </mat-card>
+
+      <!-- Maintenance Message -->
+      <mat-card class="settings-card clickable" (click)="openMaintenanceDialog()">
+        <div class="settings-header">Maintenance Message</div>
+        <div class="settings-row">
+          <span class="label">Maintenance notice message</span>
+          <mat-icon>chevron_right</mat-icon>
+        </div>
+      </mat-card>
+
+      <!-- Auto Approval -->
+      <mat-card class="settings-card clickable" (click)="openAutoApprovalDialog()">
+        <div class="settings-header">Auto Approval</div>
+        <div class="settings-row">
+          <span class="label">Non-Compliance Report auto approval</span>
+          <mat-icon>chevron_right</mat-icon>
+        </div>
+      </mat-card>
+    </section>
+  </main>
+</app-side-nav>
+
+<!-- Dropdown Menu -->
+<mat-menu #intervalMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item (click)="setInterval('Minutes')">Minutes</button>
+  <button mat-menu-item (click)="setInterval('Hourly')">Hourly</button>
+  <button mat-menu-item (click)="setInterval('Daily')">Daily</button>
+  <button mat-menu-item (click)="setInterval('Monthly')">Monthly</button>
+</mat-menu>

@@ -1,0 +1,40 @@
+<app-side-nav>
+
+  <main class="page-container">
+    <header class="page-header">
+      <h2 class="title">Notifications</h2>
+      <div class="actions">
+
+      </div>
+    </header>
+
+    <section class="page-content">
+      <!-- Header -->
+      <mat-card class="notification-card header-card">
+        <div class="header-row">
+          <div class="col">Date</div>
+          <div class="col">Type</div>
+          <div class="col">Message</div>
+        </div>
+      </mat-card>
+
+      <!-- Data Cards -->
+      <div class="card-grid">
+        @for (notification of notifications; track $index) {
+          <mat-card class="notification-card">
+            <div class="row">
+              <div class="col">{{ notification.date | date: 'mediumDate' }}</div>
+              <div class="col">{{ notification.type }}</div>
+              <div class="col">{{ notification.message }}</div>
+            </div>
+          </mat-card>
+        }
+      </div>
+
+      <!-- Paginator -->
+      <mat-paginator [length]="total" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        aria-label="Select page">
+      </mat-paginator>
+    </section>
+  </main>
+</app-side-nav>

@@ -1,0 +1,219 @@
+<section class="container">
+  <header class="header sticky">
+    <button mat-icon-button (click)="onCloseDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <h3>Create New Report</h3>
+  </header>
+
+  <section class="content">
+    <mat-stepper linear #stepper [disableRipple]="true">
+      <mat-step #stepDetail [stepControl]="detailFormGroup">
+        <ng-template matStepLabel>Information</ng-template>
+        <ng-template matStepContent>
+          <ng-container [ngTemplateOutlet]="informationTemplate"></ng-container>
+        </ng-template>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Confirmation</ng-template>
+        <ng-template matStepContent>
+          <ng-container [ngTemplateOutlet]="confirmationTemplate"></ng-container>
+        </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </section>
+</section>
+
+
+<ng-template #informationTemplate>
+  <p class="group-header">Report Type</p>
+  <form [formGroup]="detailFormGroup" class="compact-form">
+    <input type="hidden" formControlName="typeCtrl" />
+    <mat-list class="selection-list">
+      @for (type of reportTypeData; track $index) {
+      <mat-card appearance="outlined" (click)="onSelectedItem(type)" [ngClass]="isSelectedType(type) ? 'selected' : ''">
+        <mat-card-content>
+          <span class="title">{{ type }} Report</span>
+        </mat-card-content>
+      </mat-card>
+      }
+    </mat-list>
+
+    <p class="group-header">Information</p>
+    <div class="form-content">
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Report Date</mat-label>
+        <input matInput [matDatepicker]="datepicker" placeholder="DD MMM YYYY" [formControl]="dateCtrl" readonly>
+        <!-- <mat-hint>DD MMM YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #datepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Vessel Name</mat-label>
+        <input matInput formControlName="vesselNameCtrl" placeholder="Select Vessel">
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="titleCtrl" placeholder="Title">
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Category</mat-label>
+        <input matInput formControlName="categoryCtrl" placeholder="Select Category">
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Occurred Date</mat-label>
+        <input matInput [matDatepicker]="occurredDatepicker" placeholder="DD MMM YYYY" [formControl]="occurredDateCtrl"
+          readonly>
+        <!-- <mat-hint>DD MMM YYYY</mat-hint> -->
+        <mat-datepicker-toggle matIconSuffix [for]="occurredDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #occurredDatepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Location</mat-label>
+        <input matInput formControlName="locationCtrl" placeholder="Location">
+      </mat-form-field>
+      <mat-form-field hideRequiredMarker>
+        <mat-label>Report Description</mat-label>
+        <textarea matInput formControlName="descriptionCtrl" rows="5" aria-label="Report Description" [autofocus]="true"
+          cdkFocusInitial></textarea>
+      </mat-form-field>
+
+      <p class="group-header">Upload Picture</p>
+      <div class="upload-container">
+        <mat-card appearance="outlined" (click)="onSelectPicture()">
+          <mat-card-content class="upload-wrapper">
+            <input type="file" #pictureInput hidden accept="image/*" (change)="onPictureSelected($event)" />
+            <mat-icon class="icon">cloud_upload</mat-icon>
+            <span>Select Picture</span>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-list>
+          @for (picture of reportCreateData.pictures; track $index) {
+          <mat-list-item>
+            <img matListItemAvatar class="media-preview" [src]="picture.base64" [alt]="picture.filename" />
+            <span matListItemLine class="media-info">
+              <span class="media-name">{{picture.filename}}</span>
+              <button mat-icon-button class="critical-button" (click)="onDeletePicture($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </span>
+          </mat-list-item>
+          }
+        </mat-list>
+      </div>
+
+      <p class="group-header">Upload Video</p>
+      <div class="upload-container">
+        <mat-card appearance="outlined" (click)="onSelectVideo()">
+          <mat-card-content class="upload-wrapper">
+            <input type="file" #videoInput hidden accept="video/*" (change)="onVideoSelected($event)">
+            <mat-icon class="icon">cloud_upload</mat-icon>
+            <span>Select Video</span>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-list>
+          @for (video of reportCreateData.videos; track $index) {
+          <mat-list-item>
+            <video matListItemAvatar controls class="media-preview" [src]="video.base64"></video>
+            <span matListItemLine class="media-info">
+              <span class="media-name">{{video.filename}}</span>
+              <button mat-icon-button class="critical-button" (click)="onDeleteVideo($index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </span>
+          </mat-list-item>
+          }
+        </mat-list>
+      </div>
+    </div>
+    <div class="form-action">
+      <button mat-stroked-button (click)="onSaveToDraft()">Save Draft</button>
+      <button mat-flat-button [disabled]="detailFormGroup.invalid" (click)="onGoNext()">Next</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #confirmationTemplate>
+  <p class="group-header">Confirm new report details:</p>
+  <div class="form-content view">
+    <div class="field-row">
+      <span class="label">Report Type</span>
+      <span class="value">{{reportCreateData.type}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Report Date</span>
+      <span class="value">{{reportCreateData.dateStr}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Vessel (MMSI)</span>
+      @if (reportCreateData.vessel.mmsi) {
+      <span class="value">{{reportCreateData.vessel.name | stringNormalize}} ({{reportCreateData.vessel.mmsi}})</span>
+      }
+      @else {
+      <span class="value">{{reportCreateData.vessel.name | stringNormalize }}</span>
+      }
+    </div>
+    <div class="field-row">
+      <span class="label">Title</span>
+      <span class="value">{{reportCreateData.title | stringNormalize}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Occurred Date</span>
+      <span class="value">{{reportCreateData.occurredDateStr}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Location</span>
+      <span class="value">{{reportCreateData.location.value | stringNormalize}}</span>
+    </div>
+    <div class="field-row">
+      <span class="label">Report Description</span>
+      <span class="value">{{reportCreateData.description | stringNormalize}}</span>
+    </div>
+
+    <div class="field-row">
+      <span class="label">Attached Picture</span>
+      @if (reportCreateData.pictures.length > 0) {
+        <mat-list>
+          @for (picture of reportCreateData.pictures; track $index) {
+            <mat-list-item>
+              <img matListItemAvatar class="pic-preview" [src]="picture.base64" alt="Avatar" />
+              <span matListItemLine class="pic-info">
+                <span class="pic-name">{{picture.filename}}</span>
+              </span>
+            </mat-list-item>
+          }
+        </mat-list>
+      } @else {
+        <span class="value">No picture attached</span>
+      }
+    </div>
+
+
+    <div class="field-row">
+      <span class="label">Attached Video</span>
+      @if (reportCreateData.videos.length > 0) {
+      <mat-list>
+        @for (video of reportCreateData.videos; track $index) {
+          <mat-list-item>
+            <video matListItemAvatar controls class="media-preview" [src]="video.base64"></video>
+            <span matListItemLine class="media-info">
+              <span class="media-name">{{video.filename}}</span>
+            </span>
+          </mat-list-item>
+        }
+      </mat-list>
+      } @else {
+        <span class="value">No video attached</span>
+      }
+    </div>
+  </div>
+  <div class="form-action">
+    <button mat-stroked-button (click)="onGoBack()">Back</button>
+    <button mat-stroked-button (click)="onSaveToDraft()">Save Draft</button>
+    <button mat-flat-button (click)="onConfirmation()">Submit</button>
+  </div>
+</ng-template>

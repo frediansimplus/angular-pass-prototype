@@ -1,0 +1,1 @@
+export type CRUD = 'View' | 'Create' | 'Update' | 'Delete';

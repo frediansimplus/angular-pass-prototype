@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "date": "2025-09-08T09:00:00",
+    "category": "Slips, Trips, and Falls",
+    "vessel_name": "Falcon A",
+    "title": "An employee nearly slips",
+    "location": "AEW",
+    "status": "pending"
+  },
+  {
+    "id": "2",
+    "date": "2025-09-08T09:00:00",
+    "category": "Struck By or Against",
+    "vessel_name": "Falcon B",
+    "title": "A worker narrowly avoids",
+    "location": "AEW",
+    "status": "in progress"
+  },
+  {
+    "id": "3",
+    "date": "2025-09-08T09:00:00",
+    "category": "Equipment Malfunction",
+    "vessel_name": "Falcon F",
+    "title": "A forklift’s brakes fail",
+    "location": "AEW",
+    "status": "complete"
+  },
+  {
+    "id": "4",
+    "date": "2025-09-08T09:00:00",
+    "category": "Unsafe Condition",
+    "vessel_name": "Falcon R",
+    "title": "An employee almost trips",
+    "location": "AEW",
+    "status": "in progress"
+  },
+  {
+    "id": "5",
+    "date": "2025-09-08T09:00:00",
+    "category": "Critical Non-Compliance",
+    "vessel_name": "Falcon W",
+    "title": "A critical safety feature",
+    "location": "AEW",
+    "status": "pending"
+  },
+  {
+    "id": "6",
+    "date": "2025-09-08T09:00:00",
+    "category": "Regulatory Non-Compliance",
+    "vessel_name": "Falcon C",
+    "title": "Failing to properly dispose",
+    "location": "AEW",
+    "status": "pending"
+  },
+  {
+    "id": "7",
+    "date": "2025-09-08T09:00:00",
+    "category": "Unintentional Non-Compliance",
+    "vessel_name": "Falcon Q",
+    "title": "An employee fails to update",
+    "location": "AEW",
+    "status": "pending"
+  },
+  {
+    "id": "8",
+    "date": "2025-09-08T09:00:00",
+    "category": "Ethical Non-Compliance",
+    "vessel_name": "Falcon E",
+    "title": "Engaging in misleading actions",
+    "location": "AEW",
+    "status": "complete"
+  }
+]
